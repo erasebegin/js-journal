@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Factorial Algorithm"
-date:   2019-03-10
+date:   2019-03-17
 categories: beginner
 ---
 

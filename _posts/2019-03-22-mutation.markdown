@@ -1,0 +1,108 @@
+---
+layout: post
+title:  "Mutations"
+date:   2019-03-22
+categories: beginner
+---
+
+This is a string comparison challenge. The function takes an array containing two elements. My function must compare these two elements and see if the letters contained in the second element (arr[1]) can be found in the first element (arr[0]), _regardless of order_. 
+
+I could convert the strings to arrays and use a for loop to compare the array elements, but I would like to try a different way to see if I can increase the number of tools at my disposal when tackling a problem. From an earlier tutorial I gather that regular expressions are a great way of comparing strings. I'll review regex and see what I can find.                              
+
+Actually I don't think regular expressions are the best way to go about this, at least at the level of knowledge that I am currently able to access. From what I know about regular expressions it would not work well for matching characters that are not in the same order as the string that is being compared. 
+
+I would like to use a higher order function, but can't think which one to use. I thought filter() might work well, but I don't understand how to use this when there is no variable iterating through the array. I know how to use filter when I'm looking for a simple condition, but matching multiple elements in one array to multiple elements in another array doesn't seem possible... In the previous problem I used a nested for loop, since I couldn't figure out how to use a higher order function. Perhaps I can use a nested filter? Or something along those lines...
+
+I'm going to go study higher order functions a bit.                  
+
+Even though I have been watching tutorials for almost 2 hours, I don't seem any closer to a solution. I have learned much more about higher order functions, but not how to apply them to this particular problem. Something about having two arrays that is throwing me. All of the examples I have seen thus far take equations as arguments or operate on data structures.
+
+I will therefore go the for loop method for now and hopefully return to this problem once I have learned more.                                   
+
+Although its probably quite computationally inefficient, I will try to make a nested for loop that looks at the first element of the first array, compares it to every element in the second array, iterates a counter if it finds a match, and then iterates to the next element of the first array. If the number on the counter equals the length of the first array, then there are enough matches to return true.
+
+```javascript
+function mutation(arr) {
+
+  const w1 = arr[0].toLowerCase().split('');
+  const w2 = arr[1].toLowerCase().split('');
+  let trueNum = 0;
+
+  for(let i=0; i<w1.length; i++) {
+      if(w1[i]==w2[i]){
+        trueNum++
+      }
+    console.log(trueNum)
+  }
+
+  if(trueNum == w1.length){
+    return true
+  } else {
+    return false
+  }
+}
+```          
+
+This seems to be sufficient for the first step. I just need to make this for loop repeat so that it doesn't just find matches in the correct order. I was just avoiding this at first because nested loops make my head hurt.
+
+```javascript
+  const w1 = arr[0].toLowerCase().split('');
+  const w2 = arr[1].toLowerCase().split('');
+  let matches = 0;
+  for(let j=0; j<w1.length; j++) {
+    console.log('outer loop: ' + j)
+    for(let i=0; i<w1.length; i++) {
+        console.log('inner loop: ' + i)
+        if(w1[j]==w2[i]){
+          matches++
+          break
+        }
+      }
+      console.log('match: '+ matches) 
+    }
+
+  if(matches == w2.length){
+    return true
+  } else {
+    return false
+  }
+}
+```
+
+I was having an issue where an input of 'hello' and 'Hello' was returning false, but couldn't figure out why. So I logged the events of the function as shown above to help me visualise what was happening and realised that the loop was returning multiple matches when the word contained duplicate letters. That's because I wasn't exiting the loop after the first instance was found. I added a break to fix this.
+
+So this is basically functioning as it should, but I've reached a particularly challenging issue. The inputs ["Mary", "Aarmy"] and ["floor","for"] are returning false. I can see that this is again due to matches being returned for duplicates. For the latter example I am getting 4 matches instead of 3.
+
+In the case of ["Mary", "Aarmy"] the problem is that the second string is longer than the first. That means I can't specify that the number of matches needs to equal the length of the second string. I get the feeling that the overall logic I have implemented to solve this is whack. I am tempted to wipe this out and start from scratch...
+
+After turning to a different task and then getting some sleep I have returned to the problem. It seems that there is just a simple error with the way I have arranged the for loop. If I switch i and j in the if statement within the for loop and then switch the closing argument of the inner and outer loops, I have a fully functional  algorithm! I shudder at the idea of a professional programmer looking at this.
+
+```javascript
+function mutation(arr) {
+
+  const w1 = arr[0].toLowerCase().split('');
+  const w2 = arr[1].toLowerCase().split('');
+  let matches = 0;
+  for(let j=0; j<w2.length; j++) {
+    console.log('OUT: ' + j)
+    for(let i=0; i<w1.length; i++) {
+        console.log('in: ' + i)
+        if(w1[i]==w2[j]){
+          matches++
+          break
+        }
+      }
+      console.log('match: '+ matches) 
+    }
+
+  if(matches == w2.length){
+    return true
+  } else {
+    return false
+  }
+}
+
+mutation(["floor", "for"]);
+```
+
+On to the last problem! 
