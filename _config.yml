@@ -1,6 +1,6 @@
 # Site settings
 title:        "JS Journal"
-description:  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolor"
+description:  "A record of my adventures in learning javascript fundamentals"
 baseurl:      "" # the subpath of your site, e.g. /blog/
 url:          "erasebegin.github.io/js-journal" # the base hostname & protocol for your site
 permalink:    /:year/:title

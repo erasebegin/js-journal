@@ -22,7 +22,10 @@ body {
     margin: 0;
     font-family: $base-font-family;
     font-size: $base-font-size;
-    background: $body-background;
+    background-image: url(https://i.ibb.co/bdSNHgM/white-paper-texture-with-flecks.jpg);
+    background-color: rgba(255, 255, 255, 0.7);
+    background-size: 900px;
+    background-blend-mode: hard-light;
 }
 a {
     text-decoration: none;
@@ -40,6 +43,7 @@ p {
     padding: $spacing-unit;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
 
     img {
       max-width: 100%;
@@ -53,7 +57,7 @@ p {
   padding:0;
 
   a {
-    color: #d21717;
+    color: #B1B372;
     &:hover,
     &:focus {
       color: #E40000;
@@ -74,7 +78,7 @@ p {
 nav {
   a {
     padding: 0.4em;
-    background: #fff;
+    background: rgb(253, 201, 218);
     display:inline-block;
     &:nth-child(2n) {
       margin: 10px;
@@ -118,6 +122,7 @@ nav {
 
 header {
   background: $blue;
+  box-shadow: 1px 1px 5px rgba(148, 148, 148, 0.61);
 }
 
 /*****************************************************************************/
