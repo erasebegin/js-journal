@@ -1,0 +1,2 @@
+I"@<p>Well this looks like a toughie. I need to take a string variable and a target variable and see if target appears at the end of the string. I am told that this can be solved with the .endsWith() method introduced in ES2015, but that I shouldn’t use it. I must instead use substring methods to solve this puzzle.</p>
+:ET

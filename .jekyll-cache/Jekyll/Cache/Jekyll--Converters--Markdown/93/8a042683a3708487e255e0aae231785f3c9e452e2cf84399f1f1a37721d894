@@ -1,0 +1,2 @@
+I"<p>Bearing some resemblance to the previous problem where the longest string had to be found, this problem is somewhat more complex since the array is 2-dimensional, which means that I will probably have to use a nested for loop to access the sub-arrays.</p>
+:ET

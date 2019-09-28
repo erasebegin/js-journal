@@ -1,0 +1,29 @@
+I"2<p>First part of problem was to convert the string into an array of words. For this I used the split() method, giving “ “ as the splitting parameter. I then had to find a way to get the lengths of each string in this array. I thought that the length property only worked on arrays, so spent a lot of time trying to figure out how to convert the strings in the array to separate characters in a sub-array which was super messy and confusing. It turns out you CAN use the length property to just get the length of a string.</p>
+
+<p>The second part of the challenge is to figure out a way to compare the numbers in the newly created strLenArr to find the largest one. At first I thought this would be simple, but am struggling to come up with a solution on my own.</p>
+
+<p>Turns out it was simple! I was quite proud to have come up with this solution without forum help:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">findLongestWordLength</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">splitStr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">strLenArr</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">splitStr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">strLenArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">splitStr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">let</span> <span class="nx">highest</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">strLenArr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">strLenArr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">highest</span><span class="p">){</span>
+      <span class="nx">highest</span><span class="o">=</span><span class="nx">strLenArr</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">highest</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">findLongestWordLength</span><span class="p">(</span><span class="dl">"</span><span class="s2">The quick brown fox jumped over the lazy dog</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+:ET

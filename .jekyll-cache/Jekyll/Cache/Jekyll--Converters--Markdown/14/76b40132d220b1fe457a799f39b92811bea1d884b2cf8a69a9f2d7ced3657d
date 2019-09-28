@@ -1,0 +1,2 @@
+I"�<p>The challenge: take a string and a number and repeat the string that number of times. An empty string must be returned if the number is less than 0. I really can’t see this being much of a problem. First I’ll want to check it the number is 0 or more, so I’ll open with an if statement. If that condition is met then perhaps I can use a for loop along with the concatenate method to create the new string. The else statement will create an empty string. Let’s see how that pans out.</p>
+:ET

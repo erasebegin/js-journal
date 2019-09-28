@@ -1,0 +1,2 @@
+I"*<p>While creating factorial algorithm, biggest roadblock was in not recognising that the formula was trying to multiply by 0 so the result kept coming back as NaN. The solution was to take the number that was to be factorised, create an array from 1 to that number, and then create a for loop:</p>
+:ET

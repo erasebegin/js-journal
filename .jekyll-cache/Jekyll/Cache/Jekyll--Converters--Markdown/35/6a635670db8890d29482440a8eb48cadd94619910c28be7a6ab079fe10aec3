@@ -1,11 +1,4 @@
----
-layout: post
-title:  "HTML"
-date:   2014-05-01 20:46:47
-categories: jekyll update
----
-
-<div class="entry-content">
+I"ô<div class="entry-content">
 		<p>What HTML tags would you like to see?</p>
 <p>Letâ€™s start with an unordered list:</p>
 <ul>
@@ -43,3 +36,4 @@ categories: jekyll update
 </li>
 </ol>
 	</div>
+:ET

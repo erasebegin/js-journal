@@ -1,0 +1,2 @@
+I"<p>First part of problem was to convert the string into an array of words. For this I used the split() method, giving “ “ as the splitting parameter. I then had to find a way to get the lengths of each string in this array. I thought that the length property only worked on arrays, so spent a lot of time trying to figure out how to convert the strings in the array to separate characters in a sub-array which was super messy and confusing. It turns out you CAN use the length property to just get the length of a string.</p>
+:ET
