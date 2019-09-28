@@ -1,11 +1,10 @@
 # Site settings
 title:        "JS Journal"
 description:  "A record of my adventures in learning javascript fundamentals :)"
-baseurl:      "/js-journal" # the subpath of your site, e.g. /blog/
+baseurl:      "/js-journal/" # the subpath of your site, e.g. /blog/
 url:          "https://erasebegin.github.io" # the base hostname & protocol for your site
 permalink:    /:year/:title
 github:       "erasebegin"
-# twitter:      "yourusername"
 email:        "chris.james.haupt@gmail.com"
 disqus-id:    "js-journal" #leave blank if you dont want comments.
 
