@@ -8,7 +8,7 @@
     background: white;
 }
 .color4 {
-    background: $green;
+    background: $pink;
 }
 
 
@@ -57,10 +57,10 @@ p {
   padding:0;
 
   a {
-    color: #B1B372;
+    color: rgb(153, 153, 153);
     &:hover,
     &:focus {
-      color: #E40000;
+      filter: brightness(0.8);
     }
   }
   .module {
@@ -76,19 +76,24 @@ p {
 /*****************************************************************************/
 
 nav {
-  a {
-    padding: 0.4em;
-    background: rgb(253, 201, 218);
+    background: linear-gradient(135deg, $pink 81%,$pink 82%,$pink 82%,rgb(255, 243, 247) 100%); 
+    border-top:60px solid rgb(248, 178, 200);
+    border:1px solid #E8E8E8;
+    border-bottom-right-radius: 50px 5px;
     display:inline-block;
-    &:nth-child(2n) {
-      margin: 10px;
-    }
-    &:hover {
-      background: $link-hover;
-      border: 0;
-      color: #fff !important;
-      // for now
-    }
+    a {
+      font-family:'Reenie Beanie', cursive;
+      font-size: 3rem;
+      margin: 1em auto;
+      padding: 0.1em;
+      text-shadow: 1px 1px 3px rgb(255, 201, 217);
+      
+      &:hover {
+        background: $link-hover;
+        border: 0;
+        color: #fff !important;
+        // for now
+      }
   }
   .module {
     padding-top: $spacing-unit;
@@ -108,22 +113,38 @@ nav {
 
     h1 {
       margin: 0;
+      font-family:'Reenie Beanie', cursive;
+      text-align: center;
+      font-size: 4rem;
     }
 
-    a {
+    .main-title {
       color: #000;
       font-weight: normal;
       &:hover,
       &:focus {
-        color: #000;
+        background: rgb(203, 228, 248);
+        color: rgb(3, 115, 207);
       }
     }
 }
 
 header {
-  background: $blue;
-  box-shadow: 1px 1px 5px rgba(148, 148, 148, 0.61);
+  background: linear-gradient(135deg, $blue 81%,$blue 82%,$blue 82%,rgb(232, 245, 255) 100%);
+  border:1px solid #E8E8E8;
+  border-top:60px solid rgb(210, 234, 253);
+  border-bottom-right-radius: 60px 5px;
 }
+
+.site-description {
+  background: linear-gradient(135deg, $yellow 81%,$yellow 82%,$yellow 82%,rgb(253, 253, 218) 100%); 
+  border-top:50px solid rgb(253, 255, 127);
+  border:1px solid #E8E8E8;
+  border-bottom-right-radius: 50px 5px;
+  font-family:'Reenie Beanie', cursive;
+  font-size: 1.7rem;
+}
+
 
 /*****************************************************************************/
 /*
