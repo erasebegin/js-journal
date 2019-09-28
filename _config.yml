@@ -1,8 +1,8 @@
 # Site settings
 title:        "JS Journal"
 description:  "A record of my adventures in learning javascript fundamentals :)"
-baseurl:      "/js-journal/" # the subpath of your site, e.g. /blog/
-url:          "https://erasebegin.github.io" # the base hostname & protocol for your site
+baseurl:      "/js-journal" # the subpath of your site, e.g. /blog/
+url:          "https://erasebegin.github.io/" # the base hostname & protocol for your site
 permalink:    /:year/:title
 github:       "erasebegin"
 email:        "chris.james.haupt@gmail.com"
