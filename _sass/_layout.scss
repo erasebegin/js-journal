@@ -60,7 +60,7 @@ p {
     color: rgb(153, 153, 153);
     &:hover,
     &:focus {
-      filter: brightness(0.8);
+      filter: brightness(1.2);
     }
   }
   .module {
@@ -86,13 +86,16 @@ nav {
       font-size: 3rem;
       margin: 1em auto;
       padding: 0.1em;
-      text-shadow: 1px 1px 3px rgb(255, 201, 217);
+      // text-shadow: 1px 1px 3px rgb(255, 201, 217);
       
-      &:hover {
-        background: $link-hover;
+      &:hover,
+      &:focus {
+        background: rgb(255, 223, 233);
         border: 0;
-        color: #fff !important;
-        // for now
+      }
+
+      &:visited {
+        color: black;
       }
   }
   .module {
@@ -121,10 +124,10 @@ nav {
     .main-title {
       color: #000;
       font-weight: normal;
+      padding: .5em;
       &:hover,
       &:focus {
         background: rgb(203, 228, 248);
-        color: rgb(3, 115, 207);
       }
     }
 }
@@ -134,6 +137,26 @@ header {
   border:1px solid #E8E8E8;
   border-top:60px solid rgb(210, 234, 253);
   border-bottom-right-radius: 60px 5px;
+}
+
+.contact {
+  display: flex;
+  max-width: 200px;
+
+
+  .contact-btn {
+    margin: auto;
+    font-size: 3rem;
+    color: rgb(124, 124, 124);
+    padding: .5em;
+    border-radius: 5px;
+
+    &:hover,
+    &:focus {
+      background: rgb(185, 185, 185);
+      color: white;
+    }
+  }
 }
 
 .site-description {
