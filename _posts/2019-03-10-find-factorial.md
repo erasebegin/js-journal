@@ -5,32 +5,15 @@ date:   2019-03-10
 categories: beginner
 ---
 
-First part of problem was to convert the string into an array of words. For this I used the split() method, giving " " as the splitting parameter. I then had to find a way to get the lengths of each string in this array. I thought that the length property only worked on arrays, so spent a lot of time trying to figure out how to convert the strings in the array to separate characters in a sub-array which was super messy and confusing. It turns out you CAN use the length property to just get the length of a string. 
-
-The second part of the challenge is to figure out a way to compare the numbers in the newly created strLenArr to find the largest one. At first I thought this would be simple, but am struggling to come up with a solution on my own.
-
-Turns out it was simple! I was quite proud to have come up with this solution without forum help:
+While creating factorial algorithm, biggest roadblock was in not recognising that the formula was trying to multiply by 0 so the result kept coming back as NaN. The solution was to take the number that was to be factorised, create an array from 1 to that number, and then create a for loop:
 
 ```javascript
-function findLongestWordLength(str) {
-  const splitStr = str.split(" ");
-  let strLenArr = [];
-  for (let i=0; i<splitStr.length; i++){
-    strLenArr.push(splitStr[i].length)
-  }
-
-  let highest = 0;
-
-  for (let j=0; j<strLenArr.length; j++){
-    if(strLenArr[j]>highest){
-      highest=strLenArr[j];
-      }
-    }
-
-  console.log(highest)
-  return str.length;
+let sum = 0;
+for (let i = 0; i < arr.length; i++) {
+	sum = sum * arr[i];
 }
-
-findLongestWordLength("The quick brown fox jumped over the lazy dog");
 ```
+
+This was problematic because of sum starting at 0 and i starting at 0. Changed both to 1 and it worked fine. If you multiply by 0 and therefore have 0 returned, the number will never reach above 0.
+
 

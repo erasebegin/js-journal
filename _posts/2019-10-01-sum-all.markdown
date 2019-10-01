@@ -1,0 +1,94 @@
+---
+layout: post
+title:  "Sum All Numbers in a Range"
+date:   2019-10-01
+categories: intermediate
+---
+
+**The Challenge:**
+
+We'll pass you an array of two numbers. Return the sum of those two numbers plus the sum of all the numbers between them.
+
+The lowest number will not always come first.
+
+**My Solution:**
+
+While the explanation is light, I feel the solution will be quite a hefty task! I first want to avoid that little caveat that "the lowest number will not always come first" so I'll use a simple `if` statement to swap the numbers if they do not appear in the array in order.
+
+Since I feel it will help me think more clearly, I will set `arr[0]` to `a` and `arr[1]` to `b`.
+
+Next I want to somehow create an array containing the value of `a` at [0] and then every integer up until the value of `b`. The length of the array would be determined by calculating `b - a`. I want to try to do this with `map()`, but I'm not sure that would work since I have only seen `map()` used to output an array of the same size as the one that is fed in.
+
+I went with a bloody `for` loop again. I must try and break out of this loop of using `for` loops...
+
+```javascript
+  let count = 0;
+
+  for(let i=0; i<=arrLen; i++) {
+    newArr.push(a+count);
+    count++
+  } 
+```
+
+This creates the array I need. So if `a = 1` and `b = 5`, I will get an array of `[1,2,3,4,5]`. What I'm going to attempt to do next is use the `reduce()` method to smoosh these numbers together.
+
+And that seems to work! 
+
+```javascript
+
+function sumAll(arr) {
+
+  //ensure that array numbers are always in order
+
+  let a = arr[0];
+  let b = arr[1];
+
+  if(arr[0]>arr[1]){
+    b = arr[0];
+    a = arr[1];
+  } 
+
+  //next create an empty array
+
+  let newArr = [];
+
+  const arrLen = b - a; //length of new array
+
+  let count = 0; 
+
+  //map all relevant integers to new array
+
+  for(let i=0; i<=arrLen; i++) {
+    newArr.push(a+count);
+    count++
+  }
+
+  //reduce array to sum of all numbers
+
+  const result = newArr.reduce((total,num)=>total+num);
+
+  return result;
+
+}
+
+sumAll([10, 5]);
+```
+
+Let's have a look at the FCC solution to see how the pros do it! 
+
+Okay so for the first part where I use a conditional to swap the integers if they were not in order, they suggest using `Math.max()` and/or `Math.min()` to determine the relative size of the integers. Oh.... oh...! The whole stage where I created a new array of integers was totally unnecessary. They also used a for loop, but they used it to add the values directly. Here is the FCC solution:
+
+```javascript
+
+function sumAll(arr) {
+    var max = Math.max(arr[0], arr[1]);
+    var min = Math.min(arr[0], arr[1]);
+    var temp = 0;
+    for (var i=min; i <= max; i++){
+        temp += i;
+    }
+  return(temp);
+}
+
+sumAll([1, 4]);
+```
