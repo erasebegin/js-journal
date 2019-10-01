@@ -1,0 +1,11 @@
+I" <p>While creating factorial algorithm, biggest roadblock was in not recognising that the formula was trying to multiply by 0 so the result kept coming back as NaN. The solution was to take the number that was to be factorised, create an array from 1 to that number, and then create a for loop:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">*</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This was problematic because of sum starting at 0 and i starting at 0. Changed both to 1 and it worked fine. If you multiply by 0 and therefore have 0 returned, the number will never reach above 0.</p>
+
+:ET

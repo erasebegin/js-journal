@@ -1,0 +1,2 @@
+I"Š<p>Here is the premise this time: the function takes 2 arguments. The first is an array, and the second it a function. My function must use the function in the second argument as a truth test for each element in the array. The function will return the first element in the array that passes the test. If none return true, then the function returns undefined. This is the template provided:</p>
+:ET

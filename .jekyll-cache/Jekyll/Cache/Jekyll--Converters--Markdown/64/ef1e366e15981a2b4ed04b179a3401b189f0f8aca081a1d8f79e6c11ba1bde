@@ -1,0 +1,29 @@
+I"<p>The task here is to split a single array into groups of arrays that are the length specified by the function’s second parameter (size).</p>
+
+<p>I guess slice and/or splice will be very useful here. I can’t see this challenge being too difficult, but I want to try and make my code as succinct as possible. Unfortunately I will probably use a for loop again as I still haven’t got the hang of higher order functions. It might be an idea to have the loop iteration parameter as size instead of i++.</p>
+
+<p>Progress update: I’ve been tinkering for an hour or so now and I have a semi-functional function. I used the array copy method (using slice()) to make sure that my splicing wasn’t affecting the original array. I also created a variable called n to increment by an amount of size with each loop, because I couldn’t figure out how to do this using i.</p>
+
+<p>I ran into a problem where the loop was iterating more times than it needed to because it was terminating after reaching arr.length which of course doesn’t make sense. I need to find a way to make this parameter dynamic depending on the number of chunks so I will create a variable that stores arr.length/size. I think that makes sense… time to try it out.</p>
+
+<p>So this is my final solution and it works!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">chunkArrayInGroups</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">arrCopy</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
+  <span class="kd">let</span> <span class="nx">newArr</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">const</span> <span class="nx">loopLimit</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="o">/</span><span class="nx">size</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">loopLimit</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">newArr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arrCopy</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="nx">size</span><span class="p">)</span>
+    <span class="nx">n</span><span class="o">+</span><span class="nx">size</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">newArr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">chunkArrayInGroups</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">3</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>I’ve been working on this small segment of the course for a month now, and although I’d really like to try my hand at simplifying some of these solutions (maybe I could use forEach() to chunk the array), I think it’s time to move on. I will update this journal when I reach the advanced algorithms tutorial further down the line.</p>
+:ET

@@ -1,0 +1,85 @@
+I"�"<p><strong>The Challenge:</strong></p>
+
+<p>We’ll pass you an array of two numbers. Return the sum of those two numbers plus the sum of all the numbers between them.</p>
+
+<p>The lowest number will not always come first.</p>
+
+<p><strong>My Solution:</strong></p>
+
+<p>While the explanation is light, I feel the solution will be quite a hefty task! I first want to avoid that little caveat that “the lowest number will not always come first” so I’ll use a simple <code class="highlighter-rouge">if</code> statement to swap the numbers if they do not appear in the array in order.</p>
+
+<p>Since I feel it will help me think more clearly, I will set <code class="highlighter-rouge">arr[0]</code> to <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">arr[1]</code> to <code class="highlighter-rouge">b</code>.</p>
+
+<p>Next I want to somehow create an array containing the value of <code class="highlighter-rouge">a</code> at [0] and then every integer up until the value of <code class="highlighter-rouge">b</code>. The length of the array would be determined by calculating <code class="highlighter-rouge">b - a</code>. I want to try to do this with <code class="highlighter-rouge">map()</code>, but I’m not sure that would work since I have only seen <code class="highlighter-rouge">map()</code> used to output an array of the same size as the one that is fed in.</p>
+
+<p>I went with a bloody <code class="highlighter-rouge">for</code> loop again. I must try and break out of this loop of using <code class="highlighter-rouge">for</code> loops…</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">arrLen</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">newArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">count</span><span class="p">);</span>
+    <span class="nx">count</span><span class="o">++</span>
+  <span class="p">}</span> 
+</code></pre></div></div>
+
+<p>This creates the array I need. So if <code class="highlighter-rouge">a = 1</code> and <code class="highlighter-rouge">b = 5</code>, I will get an array of <code class="highlighter-rouge">[1,2,3,4,5]</code>. What I’m going to attempt to do next is use the <code class="highlighter-rouge">reduce()</code> method to smoosh these numbers together.</p>
+
+<p>And that seems to work!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">sumAll</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">//ensure that array numbers are always in order</span>
+
+  <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">a</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="p">}</span> 
+
+  <span class="c1">//next create an empty array</span>
+
+  <span class="kd">let</span> <span class="nx">newArr</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">const</span> <span class="nx">arrLen</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">-</span> <span class="nx">a</span><span class="p">;</span> <span class="c1">//length of new array</span>
+
+  <span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+
+  <span class="c1">//map all relevant integers to new array</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="nx">arrLen</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">newArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">count</span><span class="p">);</span>
+    <span class="nx">count</span><span class="o">++</span>
+  <span class="p">}</span>
+
+  <span class="c1">//reduce array to sum of all numbers</span>
+
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">newArr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">total</span><span class="p">,</span><span class="nx">num</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">total</span><span class="o">+</span><span class="nx">num</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nx">sumAll</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Let’s have a look at the FCC solution to see how the pros do it!</p>
+
+<p>Okay so for the first part where I use a conditional to swap the integers if they were not in order, they suggest using <code class="highlighter-rouge">Math.max()</code> and/or <code class="highlighter-rouge">Math.min()</code> to determine the relative size of the integers. Oh…. oh…! The whole stage where I created a new array of integers was totally unnecessary. They also used a for loop, but they used it to add the values directly. Here is the FCC solution:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">sumAll</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">max</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="kd">var</span> <span class="nx">min</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="nx">min</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">max</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">temp</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="k">return</span><span class="p">(</span><span class="nx">temp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">sumAll</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]);</span>
+</code></pre></div></div>
+:ET

@@ -1,0 +1,41 @@
+I")<p>The task is to take a string and a number as inputs and return a string that is truncated to the index of that number. Then the final result should append an ellipse… It looked super simple at first and, as I suspected, it is.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">truncateString</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">truncated</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">num</span><span class="p">);</span>  
+  <span class="k">return</span> <span class="nx">truncated</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">truncateString</span><span class="p">(</span><span class="dl">"</span><span class="s2">A-tisket a-tasket A green and yellow basket</span><span class="dl">"</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This passes almost all the tests, but the folks at FCC have thrown in a little curve ball:</p>
+
+<p><img src="https://i811.photobucket.com/albums/zz39/EraseBegin/fcc-2.png" alt="fcc-checks2" /></p>
+
+<p>After looking at this a while, I think it’s actually a massive curve-ball. How on earth….?
+I guess <span class="code-bit-func">slice()</span> can’t take such a complex argument, but I don’t know how to add a step that simplifies the argument. I tried simply assigning num to a new variable, but that didn’t do it. The new variable would just contain the same level of complexity. So how do I ‘resolve’ this argument before I pass it to <span class="code-bit-func">slice()</span>?</p>
+
+<p>I guess I’ll try logging the outputs to try and see what’s going on. The console output is exactly what the checks are looking for…</p>
+
+<p>Oh! I misread the specification. It is not all outputs that should have an ellipse appended. For outputs that have the same length as the inputted string there should be no ellipse. This should be easy to fix.
+Hmmm, added an if/else statement, but the output is still incorrect.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">truncateString</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">truncated</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">num</span><span class="p">);</span> 
+  <span class="k">if</span><span class="p">(</span><span class="nx">truncated</span><span class="o">==</span><span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">truncated</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="nx">truncated</span><span class="p">;</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">truncated</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">)</span> 
+      <span class="k">return</span> <span class="nx">truncated</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">truncateString</span><span class="p">(</span><span class="dl">"</span><span class="s2">A-tisket a-tasket A green and yellow basket</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">A-tisket a-tasket A green and yellow basket</span><span class="dl">"</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>Okay so a minor alteration. I had to get truncated out of the if statement. I should be comparing str to num directly, not comparing the sliced entity. And, given the code tests, I should be looking for lengths equal to or greater than str.length, not just equal to.</p>
+
+:ET

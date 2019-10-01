@@ -1,0 +1,26 @@
+I"�	<p><strong>The Challenge:</strong></p>
+
+<p>Use the <code class="highlighter-rouge">join</code> method (among others) inside the <code class="highlighter-rouge">sentensify</code> function to make a sentence from the words in the string <code class="highlighter-rouge">str</code>. The function should return a string. For example, “I-like-Star-Wars” would be converted to “I like Star Wars”. For this challenge, do not use the <code class="highlighter-rouge">replace</code> method.</p>
+
+<p><strong>My Solution:</strong></p>
+
+<p>This is seemingly the inverse of <a href="split-array">the previous problem</a>… but this time I’m not allowed to use that beautiful <code class="highlighter-rouge">replace()</code>! I should be able to use some regex techniques that I looked at in the last exercise. Let’s get cracking then…</p>
+
+<p>I guess I’ll first try to use <code class="highlighter-rouge">split()</code> to separate the array at each point that is <em>not</em> a letter of the alphabet. I will specify this using a regex expression as before.</p>
+
+<p>Yeup, I did <code class="highlighter-rouge">str.split(/[\W]/g)</code> and it seems to be functioning correctly! Next a join and then that should be it!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">sentensify</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">splitter</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/</span><span class="se">[\W]</span><span class="sr">/g</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">joiner</span> <span class="o">=</span> <span class="nx">splitter</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="nx">joiner</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sentensify</span><span class="p">(</span><span class="dl">"</span><span class="s2">The.force.is.strong.with.this.one</span><span class="dl">"</span><span class="p">));</span>
+
+</code></pre></div></div>
+<p>Easy peasy 😁</p>
+:ET

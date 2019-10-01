@@ -1,0 +1,59 @@
+I"M"<p><strong>Task: take a string of any combination of upper and lower case letters and change the first letter of each word to upper-case.</strong></p>
+
+<p>Again, my first thought is to smash the string into a two-dimensional array and start trying to manipulate it through for loops, but there must surely be a simpler way using string methods. I there was one called toUpperCase(). So maybe I can split() the string at the spaces… that would make an array though. It’s probably the case that dealing with arrays is inevitable here. Once I have an array I suppose I can use the indexOf() method to look for the first letter in each string in the array and then change it toUpperCase(). Let’s see how that pans out.</p>
+
+<p>Okay, so I can’t use indexOf(). I forgot that it does the opposite of what I need. It returns the index of a  given string, not the string at a given index. But I’ve had a search and it seems there is a method called charAt() which does what I need.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">titleCase</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">);</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="nx">str</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">titleCase</span><span class="p">(</span><span class="dl">"</span><span class="s2">I'm a little tea pot</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Okay so some parts of this are working, but at least one thing isn’t. If I feed the line arr[0].charAt(0).toUpperCase() to the console, it returns what I expected it to. Perhaps the problem is that this doesn’t actually alter the strings in the array. Can I use push()? Seems unlikely, but I’ll try.</p>
+
+<p>push() doesn’t seem to be doing anything at all no matter what I try to push from within the for loop. Weird.</p>
+
+<p>Played around with a bunch of stuff and am still scratching my head! So what do I <em>know</em> is working?
+Well split() is definitely creating a comma separated array, and join is definitely putting the string back together again correctly. So the problem is with the for loop. But syntactically it seems fine! I also don’t understand why it’s not possible to put a console.log() within the for loop AND whatever I put in the for loops seems to have no impact whatsoever on the array.</p>
+
+<p>On the MDN pages it gives an example of a for loop and then uses console.log() to display the value of i as the loop iterates! So whaaaaat’s going on? A simple syntax error?</p>
+
+<p>Okay, I have a clue. The for loop does everything it is supposed to and all logs are correct if I just change the exit condition to a fixed number. So there’s a problem with using arr.length as the exit condition for the loop, but why? I’ve used array.length in several exercises before and have not experienced this problem.</p>
+
+<p>I swapped arr.length for str.length and that seems to have fixed the function, but still does not explain why I was having this problem. Anyway, onwards!</p>
+
+<p>If I do this within the loop:</p>
+
+<p>console.log(arr[i].charAt(0).toUpperCase())</p>
+
+<p>It returns the first letter of each string in the array in upper case. Cool, but not what I need. I found another string method called setCharAt(), but this doesn’t accept toUpperCase() as a parameter. I can imagine that there are many ways to solve this, but the one that occurs to me now is to use the above method to create a new array of capital letters and then create a new for loop that will use the setCharAt() method to change the set the first letter of each string.</p>
+
+<p>Ooo0okay… according to the debug console setCharAt() is not a valid method. I think I was looking at Java, not Javascript. But there is a method called substr() which I could possibly use.</p>
+
+<p>I was starting to think of all these crazy possibilities, my mind was going wild trying to figure this out. The more I thought about it, the more complex my thoughts became until I was convinced that this problem was totally beyond my grasp– that it was overwhelmingly deep. But then I did this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">titleCase</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">lstr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+  <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">lstr</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">capArr</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">let</span> <span class="nx">restArr</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">let</span> <span class="nx">newArr</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+     		<span class="nx">capArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">());</span>
+     		<span class="nx">restArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">length</span><span class="p">))</span>
+     		<span class="nx">newArr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">capArr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="nx">restArr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">newArr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">titleCase</span><span class="p">(</span><span class="dl">"</span><span class="s2">I'm a little tea pot</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+<p><strong>Winner!</strong></p>
+:ET

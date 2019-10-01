@@ -1,0 +1,71 @@
+I"e&<p>Here is the premise this time: the function takes 2 arguments. The first is an array, and the second it a function. My function must use the function in the second argument as a truth test for each element in the array. The function will return the first element in the array that passes the test. If none return true, then the function returns undefined. This is the template provided:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">findElement</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">findElement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>I plan to make a for loop of course to move through the array. Within the for loop I could create an if statement that applies the test to each element in the array. Let’s give it a go.</p>
+
+<p>Stumped pretty early on here.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">findElement</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">func</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">findElement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+
+</code></pre></div></div>
+<p>Tried logging the output of the function as it is passed each number in the array, but didn’t get any output. One of the biggest challenges here is dealing with a function as an argument. I’m not sure how to handle it. This one has me truly stumped. Not sure what to search, not sure what to change, not sure what to log. I will leave some time to digest this and come back to it later.</p>
+
+<p>I give up, I’m looking at the clues. First clue: use a for loop to cycle through the array. Okay, done. Second clue: “num is passed to the function. We will need to set it to the elements we want to check with the function.”</p>
+
+<p>Okay I missed that. The importance of num. It was standing out there, but I didn’t see it as relevant. So num needs to go inside the for loop I guess. What else? Wait, wait no……. I just tried something else! Haha, it was a syntax error. I didn’t define the variable i. If I just add let to the if conditions, the output works!</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">findElement</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">func</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>  
+    <span class="k">if</span><span class="p">(</span><span class="nx">test</span><span class="o">==</span><span class="kc">true</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
+  <span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">findElement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>So now that I am getting a true or false output for each element in the array, all that’s left to do is check if the first true condition is met. If so, return that element, else if the for loop reaches the length of the array, return null.</p>
+
+<p>But I’ve come to the same problem as with a previous exercise: I don’t know how to check if the for loop is at the end of the array. I faced this problem when I had to find the largest number in an array, but it seems that I can actually use arr[i].length to check if the loop has finished. I just thought that this would perhaps be testing the length of a single element in an array. Anyway, let’s give it a go.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">findElement</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">func</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">func</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>  
+    <span class="k">if</span><span class="p">(</span><span class="nx">test</span><span class="o">==</span><span class="kc">true</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
+  <span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">findElement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+<p>Yup, that did the trick! Onward, ho!</p>
+
+:ET

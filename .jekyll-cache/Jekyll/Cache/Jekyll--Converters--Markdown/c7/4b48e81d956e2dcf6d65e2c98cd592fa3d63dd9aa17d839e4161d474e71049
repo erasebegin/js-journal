@@ -1,0 +1,2 @@
+I"°<p>The task, from what I can tell, is to put the numbers in an array in order from smallest to largest and then find the index that the number provided by the second parameter should go. Although I am trying to avoid using for loops, it seems that the appropriate array method here would be sort() and I feel like that would make things a bit too easy. Iâ€™m going to go ahead and use a for loop anyway for the challenge of it.</p>
+:ET

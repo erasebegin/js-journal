@@ -1,0 +1,2 @@
+I"<p>This is quite a complicated requirement. The function takes two arrays and an index. It has to then take the second array, split it in two at the point specified by the index, and then add each of the two newly created parts to the beginning and end  of the first array.</p>
+:ET

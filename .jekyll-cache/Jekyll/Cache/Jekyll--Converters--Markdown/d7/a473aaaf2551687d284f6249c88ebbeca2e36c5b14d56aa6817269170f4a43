@@ -1,0 +1,2 @@
+I"<p>This is a string comparison challenge. The function takes an array containing two elements. My function must compare these two elements and see if the letters contained in the second element (arr[1]) can be found in the first element (arr[0]), <em>regardless of order</em>.</p>
+:ET

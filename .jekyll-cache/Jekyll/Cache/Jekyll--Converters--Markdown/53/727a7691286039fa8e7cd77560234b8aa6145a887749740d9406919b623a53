@@ -1,0 +1,75 @@
+I"�<p>I’m back again, some months later, and ready take on some more coding challenges!</p>
+
+<p><strong>The Chalenge:</strong></p>
+
+<blockquote>
+  <p>Use the <code class="highlighter-rouge">split</code> method inside the <code class="highlighter-rouge">splitify</code> function to split <code class="highlighter-rouge">str</code> into an array of words. 
+The function should return the array. Note that the words are not always separated 
+by spaces, and the array should not contain punctuation.</p>
+</blockquote>
+
+<p><strong>The Setup:</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">splitify</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Add your code below this line</span>
+  
+  
+  <span class="c1">// Add your code above this line</span>
+<span class="p">}</span>
+<span class="nx">splitify</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World,I-am code</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>My Solution:</strong></p>
+
+<p>I had a think through several ways of doing this and they all seem pretty wacky. What if I could use something to swap the commas and hyphens for spaces, and then use <code class="highlighter-rouge">split()</code>. A little research shows that I could use a regular expression with <code class="highlighter-rouge">split()</code> but that doesn’t seem like as much fun as my original idea…</p>
+
+<p>After trying out everything I could think of with <code class="highlighter-rouge">filter()</code>, <code class="highlighter-rouge">map()</code> and <code class="highlighter-rouge">forEach()</code> (I even briefly considered if it might be somehow possible to use <code class="highlighter-rouge">reduce()</code>, I eventually came across the <code class="highlighter-rouge">replace()</code> method! This will hopefully allow me to implement the steps outlines above.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">splitify</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  
+  <span class="kd">const</span> <span class="nx">removeCommas</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">removeHyphens</span> <span class="o">=</span> <span class="nx">removeCommas</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="dl">"</span><span class="s2">-</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="nx">removeHyphens</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>So I tried it like this and, success! Well… first hurdle cleared anyway. I now face the issue that this function only works if there is only one of each of the special characters.
+Actually, to look at the cases in which this function is expected to work, my method is not very suitable. Instead of having a separate stage where each kind of non-alphabet character is replaced with a space will result in a hell of a lot of stages to this process!</p>
+
+<p>Instead of saying “replace this thing with a space and this thing with a space and this thing with a space…….” I need to just say “replace everything that is not a letter with a space.” And that brings us back to regular expressions! I saw that <code class="highlighter-rouge">replace()</code> can be used with regex so I’ll give that a go. Just got to brush up on the syntax.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nx">splitify</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  
+  <span class="c1">// so here I've been able to replace all the desired </span>
+  <span class="c1">// characters with spaces but I'm left with excess spaces</span>
+
+  <span class="kd">const</span> <span class="nx">replaceWithSpace</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">[\W]</span><span class="sr">/g</span><span class="p">,</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span> 
+
+  <span class="c1">// so I will try and reduce the number of spaces between words </span>
+  <span class="c1">// to 1 with this next step</span>
+
+  <span class="kd">const</span> <span class="nx">removeSpace</span> <span class="o">=</span> <span class="nx">replaceWithSpace</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">+/g</span><span class="p">,</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="c1">// that regex says 'replace 1 or more spaces with a space'</span>
+  <span class="c1">// seems to work!</span>
+
+  <span class="kd">const</span> <span class="nx">splitOnSpace</span> <span class="o">=</span> <span class="nx">removeSpace</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="nx">splitOnSpace</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nx">splitify</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello, -World,I-am code</span><span class="dl">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Took me a while but I got there in the end! I’m sure I could have combined those two first steps into a single expression, but I think it’s clearer this way.</p>
+
+<p><strong>Reminder: don’t forget the /g flag at the end of the expression so that it doesn’t just stop after the first result!</strong></p>
+:ET

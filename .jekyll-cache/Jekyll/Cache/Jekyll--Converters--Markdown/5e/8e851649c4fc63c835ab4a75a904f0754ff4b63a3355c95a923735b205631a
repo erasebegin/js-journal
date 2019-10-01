@@ -1,0 +1,99 @@
+I"9<p>This is a string comparison challenge. The function takes an array containing two elements. My function must compare these two elements and see if the letters contained in the second element (arr[1]) can be found in the first element (arr[0]), <em>regardless of order</em>.</p>
+
+<p>I could convert the strings to arrays and use a for loop to compare the array elements, but I would like to try a different way to see if I can increase the number of tools at my disposal when tackling a problem. From an earlier tutorial I gather that regular expressions are a great way of comparing strings. I’ll review regex and see what I can find.</p>
+
+<p>Actually I don’t think regular expressions are the best way to go about this, at least at the level of knowledge that I am currently able to access. From what I know about regular expressions it would not work well for matching characters that are not in the same order as the string that is being compared.</p>
+
+<p>I would like to use a higher order function, but can’t think which one to use. I thought filter() might work well, but I don’t understand how to use this when there is no variable iterating through the array. I know how to use filter when I’m looking for a simple condition, but matching multiple elements in one array to multiple elements in another array doesn’t seem possible… In the previous problem I used a nested for loop, since I couldn’t figure out how to use a higher order function. Perhaps I can use a nested filter? Or something along those lines…</p>
+
+<p>I’m going to go study higher order functions a bit.</p>
+
+<p>Even though I have been watching tutorials for almost 2 hours, I don’t seem any closer to a solution. I have learned much more about higher order functions, but not how to apply them to this particular problem. Something about having two arrays that is throwing me. All of the examples I have seen thus far take equations as arguments or operate on data structures.</p>
+
+<p>I will therefore go the for loop method for now and hopefully return to this problem once I have learned more.</p>
+
+<p>Although its probably quite computationally inefficient, I will try to make a nested for loop that looks at the first element of the first array, compares it to every element in the second array, iterates a counter if it finds a match, and then iterates to the next element of the first array. If the number on the counter equals the length of the first array, then there are enough matches to return true.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mutation</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">w1</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">w2</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">trueNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">w1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">w1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="nx">w2</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
+        <span class="nx">trueNum</span><span class="o">++</span>
+      <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">trueNum</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">trueNum</span> <span class="o">==</span> <span class="nx">w1</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+    <span class="k">return</span> <span class="kc">true</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This seems to be sufficient for the first step. I just need to make this for loop repeat so that it doesn’t just find matches in the correct order. I was just avoiding this at first because nested loops make my head hurt.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">const</span> <span class="nx">w1</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">w2</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">matches</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">w1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">outer loop: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">j</span><span class="p">)</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">w1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">inner loop: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">i</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">w1</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">==</span><span class="nx">w2</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
+          <span class="nx">matches</span><span class="o">++</span>
+          <span class="k">break</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">match: </span><span class="dl">'</span><span class="o">+</span> <span class="nx">matches</span><span class="p">)</span> 
+    <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">matches</span> <span class="o">==</span> <span class="nx">w2</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+    <span class="k">return</span> <span class="kc">true</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>I was having an issue where an input of ‘hello’ and ‘Hello’ was returning false, but couldn’t figure out why. So I logged the events of the function as shown above to help me visualise what was happening and realised that the loop was returning multiple matches when the word contained duplicate letters. That’s because I wasn’t exiting the loop after the first instance was found. I added a break to fix this.</p>
+
+<p>So this is basically functioning as it should, but I’ve reached a particularly challenging issue. The inputs [“Mary”, “Aarmy”] and [“floor”,”for”] are returning false. I can see that this is again due to matches being returned for duplicates. For the latter example I am getting 4 matches instead of 3.</p>
+
+<p>In the case of [“Mary”, “Aarmy”] the problem is that the second string is longer than the first. That means I can’t specify that the number of matches needs to equal the length of the second string. I get the feeling that the overall logic I have implemented to solve this is whack. I am tempted to wipe this out and start from scratch…</p>
+
+<p>After turning to a different task and then getting some sleep I have returned to the problem. It seems that there is just a simple error with the way I have arranged the for loop. If I switch i and j in the if statement within the for loop and then switch the closing argument of the inner and outer loops, I have a fully functional  algorithm! I shudder at the idea of a professional programmer looking at this.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mutation</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">w1</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">w2</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">matches</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">w2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">OUT: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">j</span><span class="p">)</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">w1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">in: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">i</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">w1</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="nx">w2</span><span class="p">[</span><span class="nx">j</span><span class="p">]){</span>
+          <span class="nx">matches</span><span class="o">++</span>
+          <span class="k">break</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">match: </span><span class="dl">'</span><span class="o">+</span> <span class="nx">matches</span><span class="p">)</span> 
+    <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">matches</span> <span class="o">==</span> <span class="nx">w2</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+    <span class="k">return</span> <span class="kc">true</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">mutation</span><span class="p">([</span><span class="dl">"</span><span class="s2">floor</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">for</span><span class="dl">"</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>On to the last problem!</p>
+:ET

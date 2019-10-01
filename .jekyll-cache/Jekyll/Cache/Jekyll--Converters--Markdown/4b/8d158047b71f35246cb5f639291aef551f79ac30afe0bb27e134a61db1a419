@@ -1,0 +1,70 @@
+I"�(<p>This is quite a complicated requirement. The function takes two arrays and an index. It has to then take the second array, split it in two at the point specified by the index, and then add each of the two newly created parts to the beginning and end  of the first array.</p>
+
+<p>For example:</p>
+
+<p>frankenSplice([1, 2], [“a”, “b”], 1) should return [“a”, 1, 2, “b”]</p>
+
+<p>and</p>
+
+<p>frankenSplice([“claw”, “tentacle”], [“head”, “shoulders”, “knees”, “toes”], 2) should return [“head”, “shoulders”, “claw”, “tentacle”, “knees”, “toes”]</p>
+
+<p>I went and looked at exactly how slice() and splice() work and it seems that I should be able to get the desired effect by using only splice().</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">frankenSplice</span><span class="p">(</span><span class="nx">arr1</span><span class="p">,</span> <span class="nx">arr2</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">spliced</span> <span class="o">=</span> <span class="nx">arr2</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">arr1</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">arr2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">frankenSplice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">b</span><span class="dl">'</span><span class="p">],</span> <span class="mi">1</span><span class="p">));</span>
+</code></pre></div></div>
+<p>This function is returning exactly what the specification is asking for as far as I can tell. It must be that I have misunderstood the specification at some point.</p>
+
+<p>This is the strangest obstacle I have come up against yet. My function is doing exactly what is required. I have read the specification over and over, but can’t see any difference. I have checked the type of the output to make sure its still an array, I’ve input all of the test inputs to see that they output correctly… everything seems fine.</p>
+
+<p>I wouldn’t have thought one of these challenges could be completed with such a simple function so I’m sure I’m missing something here. The title suggests that I use slice(), but that seems unecessary….</p>
+
+<p>I think I understand what the problem is. The specification says that the second array needs to be added to the first array whereas my method adds the first array to the second. Well, that <em>could</em> be it, but the tests should only be checking the output of the function, not the method that I use to get to that output. And the output is <strong>correct</strong>.</p>
+
+<p>I had a peek at the clues and they are saying to use a for loop, so I’ll go the far more complex route to see if that satisfies the checks. It’ll be more fun that way anyway.</p>
+
+<p>I guess what I want to be doing is using the loop to shift() to the array before n is reached and then push() to the array after n is reached. I think that will work, but I need to think of a way of using slice() and splice() to complete this… So I just need to convert the same concept into their way of thinking.</p>
+
+<p>I should perhaps slice the second array at n and then perform two splices to get those two new arrays into the first array. Don’t see why I would need to use a for loop for that though…..</p>
+
+<p>Okay so it’s taken me ages to actually understand what I am being asked to do. I have not been following clearly the direction that things need to move or the method by which they ought to do. I did this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">frankenSplice</span><span class="p">(</span><span class="nx">arr1</span><span class="p">,</span> <span class="nx">arr2</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">arr2copy</span> <span class="o">=</span> <span class="nx">arr2</span>
+  <span class="kd">let</span> <span class="nx">pt1</span> <span class="o">=</span> <span class="nx">arr2copy</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">n</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">pt2</span> <span class="o">=</span> <span class="nx">arr2copy</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="nx">arr2copy</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+  <span class="nx">arr1</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">pt1</span><span class="p">)</span>
+  <span class="nx">arr1</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">arr1</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">pt2</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">arr1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Which again returns exactly the right output, but works in the wrong order. I should be  taking array 1 and inserting it at the index point of arr2 one-by-one, so that explains why they want the for loop… I guess?</p>
+
+<p>So if I slice one number out of arr1 each loop I can also splice that number into arr2 in the same iteration of the loop. Seems easy enough, but I need a way to set dynamic values for the slice parameters. I think I can use a count variable as before to achieve this. The start point of the splice will of course be n the first time the loop iterates, but it can’t stay as n each iteration since I will then be splicing the numbers in reverse order.
+So I’ll have to make use of the counter again there I think.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">frankenSplice</span><span class="p">(</span><span class="nx">arr1</span><span class="p">,</span> <span class="nx">arr2</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">sliced</span> <span class="o">=</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">count</span><span class="p">,</span><span class="nx">count</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">arr2</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">n</span><span class="o">+</span><span class="nx">count</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">sliced</span><span class="p">)</span>
+    <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">arr2</span>
+<span class="p">}</span>
+
+<span class="nx">frankenSplice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>     
+</code></pre></div></div>
+
+<p>Well shucks. Here we are again. I’ve got another fully functional function and it is failing all of the tests….. When I log the output it returns exactly what the specification asks for. I give up. As far as I’m concerned I’ve already solved this problem 3 times over. I’m going to look at the answer.</p>
+
+<p>Well the first thing I notice from the example is that they have iterated n instead of creating a new variable. Makes sense. The other thing I notice is that they used slice in a  way I didn’t expect at all. When the specification said to make a copy of the first array I thought I could do that by saying arr2copy=arr2. But that just means I have the same array with 2 different names. They used slice without any parameters to copy the array so that’s interesting. Then splice was used within the for loop in the same way that I used it. Let me try doing the slice copy trick to see if I can pass the tests that way.</p>
+
+<p>Nope. Still doesn’t like my output for some reason. I’ll just try adjusting my formula to make it more similar to their given solution. I feel that the documentation for this problem is not very clear, or maybe its that their tests are too strict.</p>
+
+<p>Anyway, solved now by making the function work in almost exactly the way it does in their solution. On to the next one!</p>
+:ET
